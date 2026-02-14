@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>랜덤 배경색 변경기</title>
+    <style>
+      :root {
+        font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background-color: #f5f7fa;
+        transition: background-color 0.35s ease;
+      }
+
+      .card {
+        padding: 2rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
+      button {
+        cursor: pointer;
+        border: none;
+        border-radius: 999px;
+        padding: 0.8rem 1.4rem;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        background: #2563eb;
+      }
+
+      #colorCode {
+        margin-top: 1rem;
+        font-family: monospace;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <h1>랜덤 배경색 웹사이트</h1>
+      <button id="changeColorButton" type="button">배경색 바꾸기</button>
+      <p id="colorCode">현재 색상: #F5F7FA</p>
+    </main>
+
+    <script>
+      const button = document.getElementById("changeColorButton");
+      const colorCode = document.getElementById("colorCode");
+
+      function getRandomColor() {
+        const randomValue = Math.floor(Math.random() * 0xffffff);
+        return `#${randomValue.toString(16).padStart(6, "0").toUpperCase()}`;
+      }
+
+      button.addEventListener("click", () => {
+        const nextColor = getRandomColor();
+        document.body.style.backgroundColor = nextColor;
+        colorCode.textContent = `현재 색상: ${nextColor}`;
+      });
+    </script>
+  </body>
+</html>
