@@ -3,72 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>랜덤 배경색 변경기</title>
-    <style>
-      :root {
-        font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background-color: #f5f7fa;
-        transition: background-color 0.35s ease;
-      }
-
-      .card {
-        padding: 2rem;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-        text-align: center;
-      }
-
-      h1 {
-        margin-top: 0;
-      }
-
-      button {
-        cursor: pointer;
-        border: none;
-        border-radius: 999px;
-        padding: 0.8rem 1.4rem;
-        font-size: 1rem;
-        font-weight: 700;
-        color: #fff;
-        background: #2563eb;
-      }
-
-      #colorCode {
-        margin-top: 1rem;
-        font-family: monospace;
-        font-size: 1rem;
-      }
-    </style>
+    <title>리프팅 논문 탐색 앱</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="card">
-      <h1>랜덤 배경색 웹사이트</h1>
-      <button id="changeColorButton" type="button">배경색 바꾸기</button>
-      <p id="colorCode">현재 색상: #F5F7FA</p>
-    </main>
+    <div class="container">
+      <header>
+        <h1>리프팅 논문 탐색 앱</h1>
+        <p>PubMed에서 논문을 찾아보고, 마음에 드는 논문을 저장해 보세요.</p>
+      </header>
 
-    <script>
-      const button = document.getElementById("changeColorButton");
-      const colorCode = document.getElementById("colorCode");
+      <section class="search-panel">
+        <label for="queryInput">검색어</label>
+        <div class="search-row">
+          <input id="queryInput" type="text" placeholder="예: facial lifting ultrasound" />
+          <button id="searchBtn">검색</button>
+        </div>
 
-      function getRandomColor() {
-        const randomValue = Math.floor(Math.random() * 0xffffff);
-        return `#${randomValue.toString(16).padStart(6, "0").toUpperCase()}`;
-      }
+        <div class="recommend-row" aria-label="추천 검색 버튼">
+          <button class="recommend-btn" data-term="HIFU">HIFU</button>
+          <button class="recommend-btn" data-term="RF">RF</button>
+          <button class="recommend-btn" data-term="HIFU vs RF">HIFU vs RF</button>
+          <button class="recommend-btn" data-term="Complications">Complications</button>
+        </div>
 
-      button.addEventListener("click", () => {
-        const nextColor = getRandomColor();
-        document.body.style.backgroundColor = nextColor;
-        colorCode.textContent = `현재 색상: ${nextColor}`;
-      });
-    </script>
+        <div class="filter-row">
+          <label for="daysInput">최근 N일</label>
+          <input id="daysInput" type="number" min="1" value="365" />
+
+          <label for="sortSelect">정렬</label>
+          <select id="sortSelect">
+            <option value="pub+date">최신순</option>
+          </select>
+        </div>
+      </section>
+
+      <section>
+        <h2>검색 결과</h2>
+        <p id="statusText" class="status">검색어를 입력하고 검색 버튼을 눌러 주세요.</p>
+        <div id="results" class="card-list"></div>
+      </section>
+
+      <section>
+        <h2>Saved</h2>
+        <p id="savedStatus" class="status">저장한 논문이 없습니다.</p>
+        <div id="savedList" class="card-list"></div>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
   </body>
 </html>
